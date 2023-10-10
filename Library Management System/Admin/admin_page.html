@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+        }
+        h3 {
+            margin-top: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Maintenance Menu</h2>
+        <div>
+            <h3>Library Members</h3>
+            <ul id="memberList">
+            </ul>
+            <button onclick="addMember()">Add Member</button>
+            <button onclick="deleteMember()">Delete Member</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript functions for CRUD operations
+        function addMember() {
+            const memberName = prompt("Enter the member's name:");
+            if (memberName) {
+                const memberList = document.getElementById("memberList");
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `
+                    <input type="checkbox">
+                    <span>${memberName}</span>
+                `;
+                memberList.appendChild(listItem);
+            }
+        }
+
+        function deleteMember() {
+            const memberList = document.getElementById("memberList");
+            const selectedItems = Array.from(memberList.querySelectorAll("li input[type='checkbox']:checked"));
+            selectedItems.forEach(item => {
+                item.parentElement.remove();
+            });
+        }
+    </script>
+</body>
+</html>

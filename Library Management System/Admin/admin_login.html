@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    
+</head>
+<body>
+    <h2>Admin Login</h2>
+    <form id="adminLoginForm" action="admin_dashboard.html" method="POST">
+        <label for="adminUsername">Username:</label>
+        <input type="text" id="adminUsername" name="adminUsername" required>
+        
+        <label for="adminPassword">Password:</label>
+        <input type="password" id="adminPassword" name="adminPassword" required>
+        
+        <input type="submit" onclick="location.href='admin_page.html'" value="Login">
+    </form>
+    <p>Don't have an account? <a href="admin_register.html">Register here</a></p>
+</body>
+</html>

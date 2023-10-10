@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+            color: #007BFF;
+        }
+        h3 {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        #totalPrice {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Vendor Page</h2>
+
+        <h3>Available Books</h3>
+        <ul id="bookList">
+        </ul>
+
+        <h3>Cart</h3>
+        <ul id="cart">
+        </ul>
+        
+        <p>Total Price: Rs <span id="totalPrice">0</span></p>
+
+        <script>
+            const bookList = document.getElementById("bookList");
+            const cart = document.getElementById("cart");
+            const totalPriceElement = document.getElementById("totalPrice");
+
+    
+            const books = [
+                { id: 1, title: "Jungle book", price: 100 },
+                { id: 2, title: "Barbie Doll", price: 100 },
+                { id: 3, title: "Green Lantern", price: 100 }
+            ];
+
+        
+            books.forEach(book => {
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `
+                    <span>${book.title}</span>
+                    <button onclick="addToCart(${book.id}, ${book.price})">Add to Cart</button>
+                `;
+                bookList.appendChild(listItem);
+            });
+
+            
+            let cartItems = [];
+            let total = 0;
+
+            
+            function addToCart(bookId, price) {
+                const book = books.find(b => b.id === bookId);
+                if (book) {
+                    cartItems.push({ id: book.id, title: book.title, price: book.price });
+                    total += price;
+                    updateCart();
+                }
+            }
+
+        
+            function updateCart() {
+                cart.innerHTML = "";
+                cartItems.forEach(item => {
+                    const cartItem = document.createElement("li");
+                    cartItem.innerHTML = `
+                        <span>${item.title}</span>
+                        <span>Rs ${item.price}</span>
+                        <button onclick="removeFromCart(${item.id}, ${item.price})">Remove</button>
+                    `;
+                    cart.appendChild(cartItem);
+                });
+                totalPriceElement.textContent = total;
+            }
+
+            
+            function removeFromCart(bookId, price) {
+                const index = cartItems.findIndex(item => item.id === bookId);
+                if (index !== -1) {
+                    cartItems.splice(index, 1);
+                    total -= price;
+                    updateCart();
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

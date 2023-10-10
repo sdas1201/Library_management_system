@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .book-list {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .delete-btn {
+            background-color: #ff5252;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .delete-btn:hover {
+            background-color: #ff0000;
+        }
+        button[type="submit"], #clear {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover, #clear:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Library Management System</h2>
+        <form id="libraryForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="book">Book Taken:</label>
+            <input type="text" id="book" required>
+
+            <label for="date">Date Taken:</label>
+            <input type="date" id="date" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" required>
+
+            <div class="btn-group">
+                <button type="submit">Add New Item</button>
+                <button type="button" id="clear" onclick="location.href='dashboard.html'">Go to Dashboard</button>
+            </div>
+        </form>
+
+        <div class="book-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Book Taken</th>
+                        <th>Date Taken</th>
+                        <th>Phone Number</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="bookList">
+                    <!-- Book list items will be displayed here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const libraryForm = document.getElementById("libraryForm");
+        const bookList = document.getElementById("bookList");
+        const clearButton = document.getElementById("clear");
+
+        libraryForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const book = document.getElementById("book").value;
+            const date = document.getElementById("date").value;
+            const phone = document.getElementById("phone").value;
+
+            const newRow = document.createElement("tr");
+            newRow.innerHTML = `
+                <td>${name}</td>
+                <td>${book}</td>
+                <td>${date}</td>
+                <td>${phone}</td>
+                <td><button class="delete-btn">Delete</button></td>
+            `;
+
+            bookList.appendChild(newRow);
+
+            // Clear the form inputs
+            libraryForm.reset();
+        });
+
+        bookList.addEventListener("click", function (event) {
+            if (event.target.classList.contains("delete-btn")) {
+                event.target.parentElement.parentElement.remove();
+            }
+        });
+
+        clearButton.addEventListener("click", function () {
+            libraryForm.reset();
+        });
+    </script>
+</body>
+</html>
